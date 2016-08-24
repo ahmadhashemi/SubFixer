@@ -7,23 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E00AE7101D6E4A1400F19736 /* SFDragView.m in Sources */ = {isa = PBXBuildFile; fileRef = E00AE70F1D6E4A1400F19736 /* SFDragView.m */; };
 		E0407E731D6E2CF000C5782A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E0407E721D6E2CF000C5782A /* AppDelegate.m */; };
 		E0407E761D6E2CF000C5782A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E0407E751D6E2CF000C5782A /* main.m */; };
-		E0407E791D6E2CF000C5782A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0407E781D6E2CF000C5782A /* ViewController.m */; };
 		E0407E7B1D6E2CF000C5782A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0407E7A1D6E2CF000C5782A /* Assets.xcassets */; };
 		E0407E7E1D6E2CF000C5782A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0407E7C1D6E2CF000C5782A /* Main.storyboard */; };
+		E0407E871D6E2D2E00C5782A /* SFMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0407E861D6E2D2E00C5782A /* SFMainViewController.m */; };
+		E0407E8B1D6E3A1B00C5782A /* SFConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = E0407E8A1D6E3A1B00C5782A /* SFConverter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E00AE70E1D6E4A1400F19736 /* SFDragView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDragView.h; sourceTree = "<group>"; };
+		E00AE70F1D6E4A1400F19736 /* SFDragView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDragView.m; sourceTree = "<group>"; };
 		E0407E6E1D6E2CF000C5782A /* SubFixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SubFixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0407E711D6E2CF000C5782A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E0407E721D6E2CF000C5782A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E0407E751D6E2CF000C5782A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E0407E771D6E2CF000C5782A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		E0407E781D6E2CF000C5782A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E0407E7A1D6E2CF000C5782A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E0407E7D1D6E2CF000C5782A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E0407E7F1D6E2CF000C5782A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E0407E851D6E2D2E00C5782A /* SFMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMainViewController.h; sourceTree = "<group>"; };
+		E0407E861D6E2D2E00C5782A /* SFMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMainViewController.m; sourceTree = "<group>"; };
+		E0407E891D6E3A1B00C5782A /* SFConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFConverter.h; path = SubFixer/Handlers/SFConverter.h; sourceTree = SOURCE_ROOT; };
+		E0407E8A1D6E3A1B00C5782A /* SFConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFConverter.m; path = SubFixer/Handlers/SFConverter.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +43,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E00AE7111D6E519A00F19736 /* Handlers */ = {
+			isa = PBXGroup;
+			children = (
+				E0407E891D6E3A1B00C5782A /* SFConverter.h */,
+				E0407E8A1D6E3A1B00C5782A /* SFConverter.m */,
+			);
+			path = Handlers;
+			sourceTree = "<group>";
+		};
 		E0407E651D6E2CF000C5782A = {
 			isa = PBXGroup;
 			children = (
@@ -58,8 +73,8 @@
 			children = (
 				E0407E711D6E2CF000C5782A /* AppDelegate.h */,
 				E0407E721D6E2CF000C5782A /* AppDelegate.m */,
-				E0407E771D6E2CF000C5782A /* ViewController.h */,
-				E0407E781D6E2CF000C5782A /* ViewController.m */,
+				E00AE7111D6E519A00F19736 /* Handlers */,
+				E0407E881D6E2D3100C5782A /* ViewControllers */,
 				E0407E7A1D6E2CF000C5782A /* Assets.xcassets */,
 				E0407E7C1D6E2CF000C5782A /* Main.storyboard */,
 				E0407E7F1D6E2CF000C5782A /* Info.plist */,
@@ -74,6 +89,17 @@
 				E0407E751D6E2CF000C5782A /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E0407E881D6E2D3100C5782A /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E0407E851D6E2D2E00C5782A /* SFMainViewController.h */,
+				E0407E861D6E2D2E00C5782A /* SFMainViewController.m */,
+				E00AE70E1D6E4A1400F19736 /* SFDragView.h */,
+				E00AE70F1D6E4A1400F19736 /* SFDragView.m */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -102,6 +128,7 @@
 		E0407E661D6E2CF000C5782A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = SF;
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = Ahmad;
 				TargetAttributes = {
@@ -145,8 +172,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0407E791D6E2CF000C5782A /* ViewController.m in Sources */,
 				E0407E761D6E2CF000C5782A /* main.m in Sources */,
+				E0407E8B1D6E3A1B00C5782A /* SFConverter.m in Sources */,
+				E0407E871D6E2D2E00C5782A /* SFMainViewController.m in Sources */,
+				E00AE7101D6E4A1400F19736 /* SFDragView.m in Sources */,
 				E0407E731D6E2CF000C5782A /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,6 +318,7 @@
 				E0407E841D6E2CF000C5782A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

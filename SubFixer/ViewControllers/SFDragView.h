@@ -1,15 +1,13 @@
 //
-//  ViewController.h
+//  SFDragView.h
 //  SubFixer
 //
-//  Created by Ahmad on 8/24/16.
+//  Created by Ahmad on 8/25/16.
 //  Copyright © 2016 Ahmad. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
 
-@interface ViewController : NSViewController
-
+@interface SFDragView : NSView
 
 @end
-
