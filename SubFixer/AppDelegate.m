@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "SFConverter.h"
 
 @interface AppDelegate ()
 
@@ -20,6 +21,14 @@
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+}
+
+-(BOOL)application:(NSApplication *)sender openFile:(NSString *)filename {
+    
+    [SFConverter fixSubtitleAtPath:filename];
+    
+    return YES;
+    
 }
 
 @end

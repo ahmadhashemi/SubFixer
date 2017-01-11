@@ -18,13 +18,14 @@ static NSString *tempFilePath;
 +(void)checkDragAndFixSubtitle:(id<NSDraggingInfo>)sender {
     
     NSArray *filesPath = [[sender draggingPasteboard] propertyListForType:NSFilenamesPboardType];
+    
     NSString *filePath = [filesPath lastObject];
     
     NSString *fileExtension = filePath.pathExtension;
     
     if (![fileExtension isEqualToString:@"srt"]) {
         
-        [SFConverter postMessage:@"Only SRT Files Are Supported"];
+        [SFConverter postMessage:@"Only SRT files are supported"];
         return;
     }
     
@@ -46,13 +47,25 @@ static NSString *tempFilePath;
     filePath = [NSString stringWithString:path];
     folderPath = [filePath stringByDeletingLastPathComponent];
     fileName = [[filePath lastPathComponent] stringByDeletingPathExtension];
+    
+    // to have a backup
+    NSError *moveError;
+    NSString *newTarget = [[[folderPath stringByAppendingPathComponent:fileName] stringByAppendingString:@"-backup"] stringByAppendingPathExtension:@"srt"];
+    [[NSFileManager defaultManager] copyItemAtPath:filePath toPath:newTarget error:&moveError];
+    
+    if (moveError) {
+        [SFConverter postMessage:moveError.localizedDescription];
+        return;
+    }
+    
     tempFilePath = [[folderPath stringByAppendingPathComponent:fileName] stringByAppendingPathExtension:@"txt"];
     
     NSError *copyError;
     [[NSFileManager defaultManager] moveItemAtPath:filePath toPath:tempFilePath error:&copyError];
     
     if (copyError) {
-        NSLog(@"%@",copyError.userInfo);
+        [SFConverter postMessage:copyError.localizedDescription];
+        return;
     }
     
     WebView *webView = [[WebView alloc] init];
@@ -71,7 +84,7 @@ static NSString *tempFilePath;
     NSString *fixedFilePath = [[folderPath stringByAppendingPathComponent:fileName] stringByAppendingPathExtension:@"srt"];
     [fixedSubtitle writeToFile:fixedFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
     
-    [SFConverter postMessage:@"Fixed File Replaced With Previous One"];
+    [SFConverter postMessage:@"Fixed file replaced with previous one"];
     
 }
 
