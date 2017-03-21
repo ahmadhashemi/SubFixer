@@ -41,7 +41,7 @@ static NSString *tempFilePath;
             for (NSString *directoryContent in directoryContents) {
                 
                 if (![directoryContent.pathExtension.lowercaseString isEqualToString:@"srt"]) {
-                    break;
+                    continue;
                 }
                 
                 NSString *contentPath = [path stringByAppendingPathComponent:directoryContent];
