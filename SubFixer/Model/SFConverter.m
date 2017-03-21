@@ -33,7 +33,7 @@ static NSString *tempFilePath;
             BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory];
             
             if (!exists || !isDirectory) {
-                return;
+                continue;
             }
             
             NSArray *directoryContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:NULL];
@@ -41,7 +41,7 @@ static NSString *tempFilePath;
             for (NSString *directoryContent in directoryContents) {
                 
                 if (![directoryContent.pathExtension.lowercaseString isEqualToString:@"srt"]) {
-                    return;
+                    break;
                 }
                 
                 NSString *contentPath = [path stringByAppendingPathComponent:directoryContent];
