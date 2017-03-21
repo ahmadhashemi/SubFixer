@@ -18,40 +18,40 @@ static NSString *tempFilePath;
 
 +(void)checkDragAndFixSubtitle:(id<NSDraggingInfo>)sender {
     
-    NSArray *pathArray = [[sender draggingPasteboard] propertyListForType:NSFilenamesPboardType];
-    NSMutableArray *filesPath = [[NSMutableArray alloc] init];
-    
-    
-    for (NSString *path in pathArray) {
-        NSString *fileExtension = path.pathExtension;
-        
-        if (![fileExtension isEqualToString:@"srt"]) {
-            BOOL isDir;
-            BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
-            if (exists) {
-                /* file exists */
-                if (isDir) {
-                    /* file is a directory */
-                    NSArray * dir = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:NULL];
-                    for (NSString *fileName in dir) {
-                        NSString *combinedPath = [NSString stringWithFormat:@"%@%@%@", path, @"/", fileName];
-                        [filesPath addObject: combinedPath];
-                    }
-                }
-            }
-        }
-        else {
-            [filesPath addObject: path];
-        }
-    }
-    
+    NSArray *paths = [[sender draggingPasteboard] propertyListForType:NSFilenamesPboardType];
     filesPathArray = [[NSMutableArray alloc] init];
-    for (NSString *filePath in filesPath) {
-        NSString *fileExtension = filePath.pathExtension;
-        if ([fileExtension isEqualToString:@"srt"]) {
-            [filesPathArray addObject:filePath];
+    
+    for (NSString *path in paths) {
+        
+        if ([path.pathExtension.lowercaseString isEqualToString:@"srt"]) { // add file if it's srt file
+            
+            [filesPathArray addObject:path];
+            
+        } else { // if it's not srt file, check if is folder or not, and if it is, add srt files inside
+            
+            BOOL isDirectory;
+            BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory];
+            
+            if (!exists || !isDirectory) {
+                return;
+            }
+            
+            NSArray *directoryContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:NULL];
+            
+            for (NSString *directoryContent in directoryContents) {
+                
+                if (![directoryContent.pathExtension.lowercaseString isEqualToString:@"srt"]) {
+                    return;
+                }
+                
+                NSString *contentPath = [path stringByAppendingPathComponent:directoryContent];
+                [filesPathArray addObject:contentPath];
+                
+            }
+            
         }
     }
+    
     [SFConverter checkArrayAndFixSubtitle];
     
 }
@@ -66,9 +66,9 @@ static NSString *tempFilePath;
     
     NSString *filePath = [filesPathArray firstObject];
     
-    
     [filesPathArray removeObject:filePath];
     [SFConverter fixSubtitleAtPath:filePath];
+    
 }
 
 +(void)postMessage:(NSString *)message {
@@ -82,7 +82,7 @@ static NSString *tempFilePath;
     
     [SFConverter postMessage:@"Please wait..."];
     
-    if ([SFConverter checkIfEncodeIsUTF8String: path]) {
+    if ([SFConverter checkIfEncodeIsUTF8String:path]) {
         [SFConverter checkArrayAndFixSubtitle];
         return;
     }
@@ -95,7 +95,6 @@ static NSString *tempFilePath;
     NSError *moveError;
     NSString *newTarget = [[[folderPath stringByAppendingPathComponent:fileName] stringByAppendingString:@"-backup"] stringByAppendingPathExtension:@"srt"];
     [[NSFileManager defaultManager] copyItemAtPath:filePath toPath:newTarget error:&moveError];
-    filePath = newTarget;
     
     if (moveError) {
         [SFConverter postMessage:moveError.localizedDescription];
@@ -120,18 +119,18 @@ static NSString *tempFilePath;
 
 
 +(BOOL)checkIfEncodeIsUTF8String:(NSString *)path {
+    
     NSURL *url = [NSURL fileURLWithPath:path];
-    NSData * urlData = [NSData dataWithContentsOfURL:url];
-    NSString * isUTF8String = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
-    if (isUTF8String) {
+    NSData *urlData = [NSData dataWithContentsOfURL:url];
+    NSString *utf8String = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
+    
+    if (utf8String) {
         return YES;
     }
+    
     return NO;
+    
 }
-
-
-
-
 
 +(void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
     
@@ -142,6 +141,7 @@ static NSString *tempFilePath;
     
     NSString *fixedFilePath = [[folderPath stringByAppendingPathComponent:fileName] stringByAppendingPathExtension:@"srt"];
     [fixedSubtitle writeToFile:fixedFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    
     [SFConverter checkArrayAndFixSubtitle];
     
 }
